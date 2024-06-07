@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>商品列表</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/main.css}"/>
+</head>
+<body>
+<h1>商品列表</h1>
+<a href="#" th:href="@{/product/new}" class="button">新增產品</a>
+<a href="#" th:href="@{/order}" class="button">查看大於0的商品</a>
+<form th:action="@{/orders}" method="post">
+    <table>
+        <thead>
+        <tr>
+            <th>商品編號</th>
+            <th>商品名稱</th>
+            <th>售價</th>
+            <th>庫存</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.productid}"></td>
+            <td th:text="${product.productname}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.quantity}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${success}" class="success"style="text-align: center;">
+        <p th:text="${success}"></p>
+    </div>
+</form>
+</body>
+</html>

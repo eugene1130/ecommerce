@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>商品列表</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/main.css}"/>
+</head>
+<body>
+<h1>商品列表</h1>
+<form th:action="@{/order}" method="post">
+    <table>
+        <thead>
+        <tr>
+            <th>商品編號</th>
+            <th>商品名稱</th>
+            <th>售價</th>
+            <th>庫存</th>
+            <th>購買數量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product, iterStat : ${products}">
+            <td th:text="${product.productid}"></td>
+            <td th:text="${product.productname}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.quantity}"></td>
+            <td>
+                <input type="number" name="quantities" th:name="quantities[__${iterStat.index}__]" min="1" th:max="${product.quantity}" th:disabled="${product.quantity == 0}" />
+                <input type="hidden" name="productIds" th:value="${product.productid}" />
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div style="text-align: center;">
+        <button type="submit" class="button">新增訂單</button>
+    </div>
+    <div th:if="${success}" class="success" style="text-align: center;">
+        <p th:text="${success}"></p>
+    </div>
+</form>
+</body>
+</html>
